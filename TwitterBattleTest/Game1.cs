@@ -11,6 +11,10 @@ namespace TwitterBattleTest
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Texture2D texture = null;
+        private Texture2D texture2 = null;
+        private Vector2 vec = new Vector2(0,0);
+        private Vector2 vec2 = new Vector2();
 
         public Game1()
         {
@@ -39,6 +43,8 @@ namespace TwitterBattleTest
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            texture = Content.Load<Texture2D>("bullet(1)");
+            texture2 = Content.Load<Texture2D>("bullet(4)");
 
             // TODO: use this.Content to load your game content here
         }
@@ -62,6 +68,9 @@ namespace TwitterBattleTest
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            vec += GamePad.GetState(PlayerIndex.One).ThumbSticks.Left*10;
+            vec2 = Mouse.GetState().Position.ToVector2();
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -74,7 +83,10 @@ namespace TwitterBattleTest
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(texture, new Vector2(vec.X,-vec.Y),Color.White);
+            spriteBatch.Draw(texture2, new Vector2(vec2.X, vec2.Y), Color.White);
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
