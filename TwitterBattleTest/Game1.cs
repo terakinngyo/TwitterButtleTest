@@ -68,7 +68,7 @@ namespace TwitterBattleTest
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            vec += GamePad.GetState(PlayerIndex.One).ThumbSticks.Left*10;
+            vec += 10 * new Vector2(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, -GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y);
             vec2 = Mouse.GetState().Position.ToVector2();
 
             // TODO: Add your update logic here
@@ -84,8 +84,8 @@ namespace TwitterBattleTest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            spriteBatch.Draw(texture, new Vector2(vec.X,-vec.Y),Color.White);
-            spriteBatch.Draw(texture2, new Vector2(vec2.X, vec2.Y), Color.White);
+            spriteBatch.Draw(texture, new Vector2( vec.X, vec.Y),Color.White);
+            spriteBatch.Draw(texture2, vec2, Color.White);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
